@@ -4,7 +4,7 @@ import { profile, stats } from "@/data/portfolio";
 export default function HeroSection() {
   return (
     <section className="hero-grid">
-      <div className="reveal delay-1">
+      <div className="js-reveal">
         <p className="eyebrow">
           <Sparkles size={16} /> {profile.title}
         </p>
@@ -25,7 +25,7 @@ export default function HeroSection() {
         <div className="stats-row">
           {stats.map((item, index) => (
             <div
-              className={`glass-card stat-card float-y ${index === 1 ? "delay-2" : ""} ${index === 2 ? "delay-3" : ""}`}
+              className={`glass-card glass glass-hover stat-card float-y js-stagger ${index === 1 ? "delay-2" : ""} ${index === 2 ? "delay-3" : ""}`}
               key={item.label}
             >
               <h3>{item.value}</h3>
@@ -35,21 +35,21 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="hero-visual reveal delay-2">
-        <div className="glass-card profile-card">
+      <div className="hero-visual js-reveal">
+        <div className="glass-card glass glass-hover profile-card">
           <div className="avatar-ring">
             <span>AB</span>
           </div>
           <h2>{profile.fullName}</h2>
           <p>{profile.location}</p>
           <div className="mini-links">
-            <a href="#" aria-label="GitHub">
+            <a href="#" aria-label="GitHub" className="glass-hover">
               <Github size={17} />
             </a>
-            <a href="#" aria-label="LinkedIn">
+            <a href="#" aria-label="LinkedIn" className="glass-hover">
               <Linkedin size={17} />
             </a>
-            <a href={`mailto:${profile.email}`} aria-label="Email">
+            <a href={`mailto:${profile.email}`} aria-label="Email" className="glass-hover">
               <Mail size={17} />
             </a>
           </div>

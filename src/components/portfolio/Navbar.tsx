@@ -2,7 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function Navbar() {
   return (
-    <header className="glass-nav reveal">
+    <header className="glass-nav glass">
       <a href="#home" className="brand-title">
         Abjith <span className="text-accent">BK</span>
       </a>
@@ -14,7 +14,7 @@ export default function Navbar() {
         <a href="#contact">Contact</a>
       </nav>
 
-      <a className="cta-ghost" href="#contact">
+      <a className="cta-ghost glass-hover" href="#contact">
         Let&apos;s Talk <ArrowUpRight size={16} />
       </a>
     </header>

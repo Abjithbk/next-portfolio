@@ -3,16 +3,16 @@ import { projects } from "@/data/portfolio";
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="section reveal delay-3">
+    <section id="projects" className="section js-reveal">
       <h2>Featured Projects</h2>
       <div className="project-grid">
         {projects.map((project) => (
-          <article className="glass-card project-item" key={project.title}>
+          <article className="glass-card glass glass-hover project-item js-stagger" key={project.title}>
             <div className="project-top">
               <Layers3 size={20} />
               <a
                 href={project.href ?? "#"}
-                className="icon-link"
+                className="icon-link glass-hover"
                 aria-label={`Open ${project.title}`}
               >
                 <ExternalLink size={18} />

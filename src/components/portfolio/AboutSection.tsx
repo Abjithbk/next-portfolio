@@ -3,22 +3,22 @@ import { profile } from "@/data/portfolio";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="section reveal delay-1">
+    <section id="about" className="section js-reveal">
       <h2>About</h2>
       <div className="two-col">
-        <p>{profile.about}</p>
+        <p className="glass glass-hover js-stagger">{profile.about}</p>
         <div className="info-grid">
-          <article className="glass-card info-item">
+          <article className="glass-card glass glass-hover info-item js-stagger">
             <Code2 size={18} />
             <h3>Tech Stack</h3>
             <p>Next.js, React, TypeScript, Node.js, MongoDB</p>
           </article>
-          <article className="glass-card info-item">
+          <article className="glass-card glass glass-hover info-item js-stagger">
             <GraduationCap size={18} />
             <h3>Education</h3>
             <p>B.Tech in Computer Science</p>
           </article>
-          <article className="glass-card info-item">
+          <article className="glass-card glass glass-hover info-item js-stagger">
             <BriefcaseBusiness size={18} />
             <h3>Goal</h3>
             <p>Build complete end-to-end products with strong UX</p>
