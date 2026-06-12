@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
+// Ignore TS error when importing global CSS in Next.js app directory
+// @ts-ignore
 import "./globals.css";
 
-const bodyFont = Manrope({
+const inter = Inter({ 
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
+  variable: "--font-inter",
 });
 
-const displayFont = Sora({
+const jetbrains = JetBrains_Mono({ 
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-display",
+  variable: "--font-jetbrains",
 });
 
 export const metadata: Metadata = {
-  title: "Abjith B K | Full Stack Developer",
-  description: "Modern portfolio website built with Next.js and TypeScript.",
+  title: "Your Name | Software Engineer",
+  description: "Portfolio",
 };
 
 export default function RootLayout({
@@ -25,10 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${bodyFont.variable} ${displayFont.variable} antialiased overflow-x-hidden`}
-      >
+    <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
+      <body className="antialiased">
         {children}
       </body>
     </html>
