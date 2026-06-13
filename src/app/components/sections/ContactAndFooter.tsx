@@ -1,7 +1,7 @@
 'use client'
 import React, { useRef, useState } from 'react'
 import {motion,useInView,Variants} from 'framer-motion'
-import { Github, Linkedin, Twitter, Mail, Send, ArrowUpRight, Calendar } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail, Send, ArrowUpRight } from "lucide-react";
 const ContactAndFooter = () => {
     const ref = useRef(null)
     const isInView = useInView(ref,{
@@ -25,83 +25,13 @@ const ContactAndFooter = () => {
     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
   };
 
-  // Timeline Data
-  const timeline = [
-    {
-      year: "2022",
-      title: "The Python Awakening",
-      description: "Started my journey with Python. Built my first automation scripts and fell in love with backend logic.",
-    },
-    {
-      year: "2023",
-      title: "Full Stack Deep Dive",
-      description: "Expanded into React and Node.js. Built my first full-stack applications and learned database design.",
-    },
-    {
-      year: "2024",
-      title: "Enterprise Ready",
-      description: "Focused on TypeScript, Next.js, and Cloud architecture. Built scalable solutions for real-world problems.",
-    },
-    {
-      year: "2026",
-      title: "Next.js & Beyond",
-      description: "Pushing the boundaries of UI/UX, 3D web experiences, and AI integration in modern applications.",
-    },
-  ];
+  
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();
   }
   return (
     <section ref={ref} id="contact" className="relative py-24 px-6 z-10">
       <div className="max-w-6xl mx-auto">
-        
-        {/* --- GROWTH TIMELINE --- */}
-        <motion.div
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={sectionVariants}
-          className="mb-32"
-        >
-          <div className="text-center mb-16">
-            <span className="text-primary-cyan font-mono text-sm tracking-widest uppercase mb-3 block">
-              Growth Timeline
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">
-              My Journey So Far
-            </h2>
-          </div>
-
-          <div className="relative max-w-3xl mx-auto">
-            {/* Vertical Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary-cyan via-primary-purple to-transparent md:-translate-x-1/2" />
-
-            {timeline.map((item, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className={`relative flex items-center mb-12 ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
-              >
-                {/* Dot on the line */}
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-background border-2 border-primary-cyan shadow-[0_0_10px_rgba(0,240,255,0.5)] md:-translate-x-1/2 z-10" />
-                
-                {/* Content Card */}
-                <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
-                  <div className="glass rounded-2xl p-6 hover:border-primary-cyan/30 transition-colors">
-                    <div className={`flex items-center gap-2 mb-2 ${index % 2 === 0 ? "md:justify-end" : ""}`}>
-                      <Calendar size={14} className="text-primary-cyan" />
-                      <span className="text-primary-cyan font-mono text-sm">{item.year}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
         {/* --- CONTACT FORM --- */}
         <motion.div
           initial="hidden"

@@ -26,7 +26,7 @@ const Navbar = () => {
             className="text-xl font-bold font-mono gradient-text"
             whileHover={{ scale: 1.05 }}
           >
-            ARCHITECT.IO
+            ABJITH.IO
           </motion.a>
 
           {/* Desktop Navigation */}

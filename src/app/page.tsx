@@ -7,6 +7,7 @@ import StatsAndAbout from "./components/sections/StatsAndAbout";
 import Skills from "./components/sections/Skills";
 import Projects from "./components/sections/Projects";
 import ContactAndFooter from "./components/sections/ContactAndFooter";
+import CodingActivity from "./components/sections/CodingActivity";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <StatsAndAbout />
       <Skills/>
+      <CodingActivity/>
       <Projects/>
       <ContactAndFooter/>
     </main>
