@@ -52,7 +52,7 @@ const Hero = () => {
             variants={itemVariants}
             className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1]"
           >
-            Hi, I'm 
+            Hi, I&apos;m 
             <span className="gradient-text">Abjith B K</span>
             <br />
             Full Stack Developer & AI/ML Enthusiast

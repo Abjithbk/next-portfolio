@@ -23,13 +23,6 @@ const ContactAndFooter = () => {
       transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.2 } 
     },
   };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-  };
-
-  
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
