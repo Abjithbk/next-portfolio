@@ -3,7 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { ReactLenis } from "lenis/react";
 import { Toaster } from "react-hot-toast";
 // Ignore TS error when importing global CSS in Next.js app directory
-// @ts-ignore 
+// @ts-expect-error 
 import "./globals.css";
 
 const inter = Inter({ 

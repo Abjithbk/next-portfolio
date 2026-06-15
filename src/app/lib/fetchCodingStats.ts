@@ -1,34 +1,34 @@
 import axios from 'axios';
 
+
+interface SubmissionStat {
+  difficulty: string;
+  count: number;
+  submissions: number;
+}
+
+interface GitHubRepo {
+  stargazers_count: number;
+}
+
 export async function getGithubStats(username: string) {
   try {
     const userResponse = await axios.get(`https://api.github.com/users/${username}`, {
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-      },
+      headers: { 'Accept': 'application/vnd.github.v3+json' },
     });
 
-    // const repoResponse = await axios.get(`https://api.github.com/users/${username}/repos?per_page=100`, {
-    //   headers: {
-    //     'Accept': 'application/vnd.github.v3+json',
-    //   },
-    // });
-    const commitResponse = await axios.get(
-      `https://api.github.com/search/commits?q=author:${username}`,
-      {
-        headers: {
-          'Accept': 'application/vnd.github.cloak-preview+json' 
-        }
-      }
-    );
+    const repoResponse = await axios.get(`https://api.github.com/users/${username}/repos?per_page=100`, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' },
+    });
 
     return {
       publicRepos: userResponse.data.public_repos || 0,
       followers: userResponse.data.followers || 0,
-      totalCommits: commitResponse.data.total_count || 0,
+      // ✅ Replaced 'any' with 'GitHubRepo'
+      totalStars: repoResponse.data.reduce((acc: number, repo: GitHubRepo) => acc + repo.stargazers_count, 0),
     };
   } catch (err) {
-    console.error('GitHub error:', err);
+    console.error('Github error:', err);
     return null;
   }
 }
@@ -73,13 +73,14 @@ export async function getLeetCodeStats(username: string) {
       return null;
     }
 
-    const stats = matchedUser.submitStats.acSubmissionNum;
+    // ✅ Replaced 'any' with 'SubmissionStat'
+    const stats: SubmissionStat[] = matchedUser.submitStats.acSubmissionNum;
     
     return {
-      totalSolved: stats.find((s: any) => s.difficulty === 'All')?.count || 0,
-      easy: stats.find((s: any) => s.difficulty === 'Easy')?.count || 0,
-      medium: stats.find((s: any) => s.difficulty === 'Medium')?.count || 0,
-      hard: stats.find((s: any) => s.difficulty === 'Hard')?.count || 0,
+      totalSolved: stats.find((s: SubmissionStat) => s.difficulty === 'All')?.count || 0,
+      easy: stats.find((s: SubmissionStat) => s.difficulty === 'Easy')?.count || 0,
+      medium: stats.find((s: SubmissionStat) => s.difficulty === 'Medium')?.count || 0,
+      hard: stats.find((s: SubmissionStat) => s.difficulty === 'Hard')?.count || 0,
       ranking: matchedUser.profile?.ranking || 0,
     };
   } catch (error) {

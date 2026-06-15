@@ -65,11 +65,11 @@ const Projects = () => {
               Featured Deployments
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              What I've Built
+              What I&apos;ve Built
             </h2>
           </div>
           <p className="text-gray-400 max-w-md md:text-right">
-            A collection of projects I've built with modern solutions, focusing on performance, scalability, and clean architecture.
+            A collection of projects I&apos;ve built with modern solutions, focusing on performance, scalability, and clean architecture.
           </p>
         </motion.div>
 
