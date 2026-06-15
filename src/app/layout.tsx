@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ReactLenis } from "lenis/react";
 import { Toaster } from "react-hot-toast";
-// Ignore TS error when importing global CSS in Next.js app directory
-// @ts-expect-error - Lenis smooth scrolling types are not fully compatible with React 19 yet
 import "./globals.css";
 
 const inter = Inter({ 
