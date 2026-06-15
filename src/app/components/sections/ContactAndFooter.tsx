@@ -57,6 +57,7 @@ const ContactAndFooter = () => {
                   <input 
                     type="text" 
                     required
+                    suppressHydrationWarning
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-cyan focus:ring-1 focus:ring-primary-cyan transition-all placeholder-gray-600"
                     placeholder="John Doe"
                   />
@@ -68,6 +69,7 @@ const ContactAndFooter = () => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    suppressHydrationWarning
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-cyan focus:ring-1 focus:ring-primary-cyan transition-all placeholder-gray-600"
                     placeholder="john@example.com"
                   />
@@ -89,6 +91,7 @@ const ContactAndFooter = () => {
               <div className="flex justify-center pt-4">
                 <motion.button
                   type="submit"
+                  suppressHydrationWarning
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-primary-cyan to-primary-purple text-white font-medium shadow-lg shadow-primary-cyan/25 hover:shadow-primary-cyan/40 transition-shadow"

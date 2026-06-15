@@ -17,17 +17,17 @@ const StatsAndAbout = () => {
 
   const cards = [
     {
-      title: "Systems Architect",
+      title: "Full Stack Development",
       description:
-        "Designing scalable backend architectures using Django and Node.js with a focus on data integrity and server performance.",
+        "Building scalable web applications using Next.js, React, and Node.js with a focus on clean architecture and performance.",
       icon: Code2,
       color: "text-primary-cyan",
       bg: "bg-primary-cyan/10",
     },
     {
-      title: "UI Engineering",
+      title: "AI/ML Exploration",
       description:
-        "Crafting pixel-perfect frontend experiences using React and Next.js, prioritizing accessibility and fluid animations.",
+        "Integrating machine learning models and AI-driven features into web applications to create smarter, data-driven user experiences.",
       icon: Palette,
       color: "text-primary-purple",
       bg: "bg-primary-purple/10",
@@ -41,7 +41,7 @@ const StatsAndAbout = () => {
   };
 
   return (
-    <section ref={ref} className="relative py-24 px-6 z-10">
+    <section ref={ref} id='about' className="relative py-24 px-6 z-10">
       <div className="max-w-6xl mx-auto">
         
         {/* --- STATS ROW --- */}
@@ -90,17 +90,14 @@ const StatsAndAbout = () => {
             </div>
             
             <p className="text-gray-400 leading-relaxed">
-              I am a software engineering student driven by the intersection of aesthetic 
-              design and robust technical architecture. My journey started with a fascination 
-              for how code can solve real-world problems, and has evolved into building 
-              full-stack applications that are both beautiful and highly performant.
+              I am a B.Tech student at the College of Engineering Chengannur, driven by the intersection of full-stack development and AI/ML. My journey is focused on building high-performance digital experiences while continuously expanding my knowledge in machine learning and data-driven solutions.
             </p>
 
             <div className="inline-flex items-center gap-3 px-4 py-3 rounded-xl glass w-fit">
               <GraduationCap className="text-primary-cyan" size={20} />
               <div className="flex flex-col">
                 <span className="text-white text-sm font-medium">Bachelor of Software Engineering</span>
-                <span className="text-gray-500 text-xs font-mono">Expected Graduation: 2026</span>
+                <span className="text-gray-500 text-xs font-mono">Expected Graduation: 2027</span>
               </div>
             </div>
           </motion.div>

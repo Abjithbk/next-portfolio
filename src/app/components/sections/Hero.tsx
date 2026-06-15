@@ -1,7 +1,7 @@
 'use client';
 import React from 'react'
 import { motion,Variants } from "framer-motion";
-import { ArrowRight, Code2, Cpu, Database, Github, Linkedin, Twitter } from "lucide-react";
+import { ArrowRight, Code2, Cpu, Github, Linkedin, Server, Twitter } from "lucide-react";
 import Button from "../ui/Button";
 import Image from 'next/image';
 const Hero = () => {
@@ -43,7 +43,7 @@ const Hero = () => {
           <motion.div variants={itemVariants} className="mb-6 flex justify-center lg:justify-start">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary-cyan">
               <span className="w-2 h-2 rounded-full bg-primary-cyan animate-pulse" />
-              Available for 2026
+              Available for 2027
             </span>
           </motion.div>
 
@@ -52,10 +52,10 @@ const Hero = () => {
             variants={itemVariants}
             className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1]"
           >
-            Crafting the{" "}
-            <span className="gradient-text">Future</span>
+            Hi, I'm 
+            <span className="gradient-text">Abjith B K</span>
             <br />
-            of Web Engineering
+            Full Stack Developer & AI/ML Enthusiast
           </motion.h1>
 
           {/* Subtitle */}
@@ -63,8 +63,8 @@ const Hero = () => {
             variants={itemVariants}
             className="text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed"
           >
-            Full Stack Developer & Software Engineering Student specializing in building
-            high-performance, scalable digital experiences with modern tech stacks.
+             Passionate about building scalable web applications and exploring the frontiers of Artificial Intelligence. I bridge the gap between robust backend architecture and intuitive frontend experiences.
+          
           </motion.p>
 
           {/* CTA Buttons */}
@@ -153,7 +153,7 @@ const Hero = () => {
             className="absolute bottom-20 right-0 md:right-10 glass-strong rounded-xl p-3 flex items-center gap-3 z-20"
           >
             <div className="p-2 rounded-lg bg-primary-purple/20 text-primary-purple">
-              <Database size={20} />
+              <Server size={20} />
             </div>
             <div className="hidden sm:block">
               <p className="text-xs text-gray-400 font-mono">Backend</p>

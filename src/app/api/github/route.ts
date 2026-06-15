@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getGithubStats } from '@/app/lib/fetchCodingStats'; // Adjust path
+import { getGithubStats } from '@/app/lib/fetchCodingStats'; 
 
 export async function GET() {
   const username = process.env.GITHUB_USERNAME;

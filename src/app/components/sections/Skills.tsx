@@ -26,42 +26,41 @@ const Skills = () => {
     {
       title: "Frontend",
       skills: [
-        { name: "React / Next.js", level: 95 },
+        { name: "React / Next.js", level: 90 },
         { name: "TypeScript", level: 90 },
-        { name: "Tailwind CSS", level: 95 },
-        { name: "Framer Motion", level: 85 },
+        { name: "Tailwind CSS", level: 90 },
+        { name: "Framer Motion", level: 60 },
       ],
     },
     {
       title: "Backend",
       skills: [
-        { name: "Node.js / Express", level: 85 },
-        { name: "Python / Django", level: 80 },
-        { name: "REST APIs", level: 90 },
-        { name: "GraphQL", level: 70 },
+        { name: "Python / FastAPI", level: 90 },
+        { name: "Node.js / Express", level: 75 },
+        { name: "REST APIs", level: 85 },
       ],
     },
     {
       title: "Database & Cloud",
       skills: [
-        { name: "PostgreSQL", level: 85 },
-        { name: "MongoDB", level: 80 },
-        { name: "AWS / Vercel", level: 75 },
-        { name: "Docker", level: 70 },
+        { name: "PostgreSQL", level: 95 },
+        { name: "MongoDB", level: 90 },
+        { name: "Vercel", level: 87 },
+        { name: "Docker", level: 80 },
       ],
     },
     {
-      title: "Tools & Design",
+      title: "Tools & Automation",
       skills: [
         { name: "Git / GitHub", level: 95 },
-        { name: "Figma", level: 85 },
-        { name: "VS Code", level: 99 },
-        { name: "Linux / Terminal", level: 80 },
+        { name: "Playwright / Patchright", level: 89 },
+        { name: "Render", level: 85 },
+        { name: "Figma", level: 70 },
       ],
     },
   ];
   return (
-    <section ref={ref} className="relative py-24 px-6 z-10">
+    <section ref={ref} id='skills' className="relative py-24 px-6 z-10">
       <div className="max-w-6xl mx-auto">
         
         {/* Section Header */}
