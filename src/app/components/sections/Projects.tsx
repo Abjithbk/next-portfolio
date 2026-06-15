@@ -25,28 +25,28 @@ const Projects = () => {
   // Your Projects Data
   const projects = [
     {
-      title: "Project 1",
-      description: "Description coming soon. This will highlight the core features and impact of the project.",
-      image: "https://placehold.co/600x400/051424/00f0ff?text=Project+1",
-      tags: ["Tech 1", "Tech 2"],
-      github: "#",
-      live: "#",
+      title: "InternPath",
+      description: "An intelligent internship guidance platform that aggregates opportunities via web scraping. Features an NLP-powered resume analyzer, skill-based recommendation engine, and a fake internship detection module to streamline the student job search.",
+      image: "https://placehold.co/600x400/051424/00f0ff?text=InternPath",
+      tags: ["React.js", "FastAPI", "PostgreSQL", "NLP"],
+      github: "https://github.com/Abjithbk/2023-2027_BATCH_CSD334_01_INTERNPATH", 
+      live: "#",   
     },
     {
-      title: "Project 2",
-      description: "Description coming soon. This will highlight the core features and impact of the project.",
-      image: "https://placehold.co/600x400/051424/b829dd?text=Project+2",
-      tags: ["Tech 1", "Tech 2"],
-      github: "#",
-      live: "#",
+      title: "Underwater Image Enhancement",
+      description: "A full-stack AI application designed to restore clarity to underwater images affected by color distortion. Utilizes classical image processing techniques and CNN-based deep learning models served via a custom API.",
+      image: "https://placehold.co/600x400/051424/b829dd?text=Image+Enhancement",
+      tags: ["Computer Vision", "FastAPI", "Deep Learning", "Python"],
+      github: "https://github.com/Abjithbk/Underwater_Image_Enhancement", 
+      live: "#", 
     },
     {
-      title: "Project 3",
-      description: "Description coming soon. This will highlight the core features and impact of the project.",
-      image: "https://placehold.co/600x400/051424/2962ff?text=Project+3",
-      tags: ["Tech 1", "Tech 2"],
-      github: "#",
-      live: "#",
+      title: "AI Operations Agent",
+      description: "A proactive observability platform that automates incident detection and root-cause analysis. Streams logs via a Universal API, clusters errors using NLP, and leverages LLMs to generate plain-English summaries and automated alerts.",
+      image: "https://placehold.co/600x400/051424/2962ff?text=AI+Ops+Agent",
+      tags: ["Next.js", "FastAPI", "Redis", "LLM / Groq"],
+      github: "https://github.com/Abjithbk/AI-Operation-Agent",
+      live: "#",  
     },
   ];
   return (
@@ -78,7 +78,7 @@ const Projects = () => {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={sectionVariants}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {projects.map((project, index) => (
             <motion.div
