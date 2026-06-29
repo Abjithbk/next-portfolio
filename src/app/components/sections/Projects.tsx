@@ -1,151 +1,232 @@
 'use client'
-import React, { useRef } from 'react'
-import { motion, useInView, Variants } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
-const Projects = () => {
-    const ref = useRef(null)
-    const isInView = useInView(ref,{
-        once:true,
-        margin:'-100px'
-    })
-     const sectionVariants: Variants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.15 } 
-    },
-  };
 
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-  };
+import { useRef, useState } from 'react'
+import Image from 'next/image'
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'framer-motion'
+import { WordsReveal } from '../text-reveal'
+import { Magnetic } from './magnetic'
 
-  // Your Projects Data
-  const projects = [
-    {
-      title: "InternPath",
-      description: "An intelligent internship guidance platform that aggregates opportunities via web scraping. Features an NLP-powered resume analyzer, skill-based recommendation engine, and a fake internship detection module to streamline the student job search.",
-      image: "https://placehold.co/600x400/051424/00f0ff?text=InternPath",
-      tags: ["React.js", "FastAPI", "PostgreSQL", "NLP"],
-      github: "https://github.com/Abjithbk/2023-2027_BATCH_CSD334_01_INTERNPATH", 
-      live: "#",   
-    },
-    {
-      title: "Underwater Image Enhancement",
-      description: "A full-stack AI application designed to restore clarity to underwater images affected by color distortion. Utilizes classical image processing techniques and CNN-based deep learning models served via a custom API.",
-      image: "https://placehold.co/600x400/051424/b829dd?text=Image+Enhancement",
-      tags: ["Computer Vision", "FastAPI", "Deep Learning", "Python"],
-      github: "https://github.com/Abjithbk/Underwater_Image_Enhancement", 
-      live: "#", 
-    },
-    {
-      title: "AI Operations Agent",
-      description: "A proactive observability platform that automates incident detection and root-cause analysis. Streams logs via a Universal API, clusters errors using NLP, and leverages LLMs to generate plain-English summaries and automated alerts.",
-      image: "https://placehold.co/600x400/051424/2962ff?text=AI+Ops+Agent",
-      tags: ["Next.js", "FastAPI", "Redis", "LLM / Groq"],
-      github: "https://github.com/Abjithbk/AI-Operation-Agent",
-      live: "#",  
-    },
-  ];
+type Project = {
+  num: string
+  title: string
+  year: string
+  category: string
+  image: string
+  blurb: string
+  tags: string[]
+  study: string[]
+}
+
+const PROJECTS: Project[] = [
+  {
+    num: '01',
+    title: 'InternPath',
+    year: '2025',
+    category: 'Platform',
+    image: '/projects/internpath.png',
+    blurb:
+      'An intelligent internship guidance platform with NLP-powered resume analysis, skill-based recommendations, and fake internship detection.',
+    tags: ['React.js', 'FastAPI', 'PostgreSQL', 'NLP'],
+    study: [
+      'Built a skill-based recommendation engine that matches student profiles with internship requirements.',
+      'Implemented NLP techniques using spaCy and NLTK for resume analysis and key information extraction.',
+      'Created a rule-based Internship Readiness Scoring mechanism with actionable improvement recommendations.',
+      'Added fake internship detection module to identify potentially fraudulent opportunities.',
+    ],
+  },
+  {
+    num: '02',
+    title: 'Underwater Image Enhancement',
+    year: '2024',
+    category: 'Research / ML',
+    image: '/projects/underwater.png',
+    blurb:
+      'Deep-learning pipeline that restores color, contrast, and clarity in degraded underwater imagery using CNN-based models.',
+    tags: ['Computer Vision', 'FastAPI', 'Deep Learning', 'Python'],
+    study: [
+      'Analyzed RGB channel imbalance mathematically and implemented classical enhancement algorithms.',
+      'Built and served a CNN-based model for automatic enhancement through a FastAPI backend.',
+      'Created a full-stack AI application with frontend interface for uploading and visualizing results.',
+      'Compared deep learning approaches against classical techniques like white balance and CLAHE.',
+    ],
+  },
+  {
+    num: '03',
+    title: 'AI Operations Agent',
+    year: '2026',
+    category: 'AI / Agents',
+    image: '/projects/ai-agent.png',
+    blurb:
+      'A proactive observability platform that automates incident detection and root-cause analysis using NLP and LLMs.',
+    tags: ['Next.js', 'FastAPI', 'Redis', 'LLM / Groq'],
+    study: [
+      'Built a Universal Ingestion API and lightweight Python SDK for seamless log and metrics streaming.',
+      'Implemented multi-stage AI pipeline using Sentence Transformers and DBSCAN for error clustering.',
+      'Integrated Large Language Models via Groq to generate plain-English root cause summaries.',
+      'Added statistical anomaly detection with Isolation Forest and automated Slack notifications.',
+    ],
+  },
+]
+
+function TiltImage({ src, alt }: { src: string; alt: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const rx = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), {
+    stiffness: 150,
+    damping: 18,
+  })
+  const ry = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), {
+    stiffness: 150,
+    damping: 18,
+  })
+
+  const onMove = (e: React.MouseEvent) => {
+    const el = ref.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    x.set((e.clientX - r.left) / r.width - 0.5)
+    y.set((e.clientY - r.top) / r.height - 0.5)
+  }
+  const reset = () => {
+    x.set(0)
+    y.set(0)
+  }
+
   return (
-    <section ref={ref} id="projects" className="relative py-24 px-6 z-10">
-      <div className="max-w-6xl mx-auto">
-        
-        {/* Section Header */}
-        <motion.div
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={sectionVariants}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
-        >
-          <div>
-            <span className="text-primary-cyan font-mono text-sm tracking-widest uppercase mb-3 block">
-              Featured Deployments
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              What I&apos;ve Built
-            </h2>
-          </div>
-          <p className="text-gray-400 max-w-md md:text-right">
-            A collection of projects I&apos;ve built with modern solutions, focusing on performance, scalability, and clean architecture.
-          </p>
-        </motion.div>
+    <motion.div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={reset}
+      style={{ rotateX: rx, rotateY: ry, transformPerspective: 1000 }}
+      className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-card shadow-xl"
+    >
+      <Image
+        src={src || '/placeholder.svg'}
+        alt={alt}
+        fill
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-foreground/5" />
+    </motion.div>
+  )
+}
 
-        {/* Projects Grid */}
-        <motion.div
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={sectionVariants}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="glass rounded-2xl overflow-hidden group flex flex-col"
+function ProjectRow({ project, index }: { project: Project; index: number }) {
+  const [open, setOpen] = useState(false)
+  const flip = index % 2 === 1
+
+  return (
+    <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-15%' }}
+        transition={{ duration: 0.6 }}
+        className={flip ? 'lg:order-2' : ''}
+      >
+        <TiltImage src={project.image} alt={`${project.title} preview`} />
+      </motion.div>
+
+      <div className={flip ? 'lg:order-1' : ''}>
+        <div className="mb-4 flex items-center gap-4 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          <span className="text-primary">{project.num}</span>
+          <span>{project.category}</span>
+          <span>·</span>
+          <span>{project.year}</span>
+        </div>
+        <h3 className="font-heading text-4xl font-bold leading-[1.02] tracking-tighter text-foreground sm:text-5xl">
+          {project.title}
+        </h3>
+        <p className="mt-5 max-w-md text-pretty text-lg leading-relaxed text-muted-foreground">
+          {project.blurb}
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="cursor-default rounded-full border border-border px-3 py-1.5 font-mono text-xs text-muted-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground"
             >
-              {/* Image Container */}
-              <div className="relative overflow-hidden aspect-video bg-background">
-                <motion.img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                />
-                {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-              </div>
-
-              {/* Content */}
-              <div className="p-6 md:p-8 flex flex-col flex-grow">
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-primary-cyan transition-colors">
-                  {project.title}
-                </h3>
-                
-                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
-                  {project.description}
-                </p>
-
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span 
-                      key={tagIndex} 
-                      className="px-3 py-1 rounded-full bg-primary-cyan/10 text-primary-cyan text-xs font-mono border border-primary-cyan/20"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex items-center gap-6 pt-4 border-t border-white/5">
-                  <motion.a 
-                    href={project.github} 
-                    className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-                    whileHover={{ x: 3 }}
-                  >
-                    <Github size={16} />
-                    Source Code
-                  </motion.a>
-                  <motion.a 
-                    href={project.live} 
-                    className="flex items-center gap-2 text-sm text-gray-400 hover:text-primary-cyan transition-colors"
-                    whileHover={{ x: 3 }}
-                  >
-                    <ExternalLink size={16} />
-                    Live Demo
-                  </motion.a>
-                </div>
-              </div>
-            </motion.div>
+              {tag}
+            </span>
           ))}
-        </motion.div>
+        </div>
+
+        <Magnetic>
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            className="group mt-8 flex items-center gap-3 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition-colors hover:bg-primary hover:text-primary-foreground"
+          >
+            {open ? 'Close case study' : 'View case study'}
+            <motion.span animate={{ rotate: open ? 45 : 0 }} className="text-primary group-hover:text-primary-foreground">
+              {open ? '×' : '→'}
+            </motion.span>
+          </button>
+        </Magnetic>
+
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.ul
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-6 space-y-3 overflow-hidden border-l-2 border-primary pl-5"
+            >
+              {project.study.map((point, i) => (
+                <li
+                  key={i}
+                  className="text-pretty leading-relaxed text-muted-foreground"
+                >
+                  {point}
+                </li>
+              ))}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  )
+}
+
+export function Projects() {
+  return (
+    <section
+      id="work"
+      className="relative mx-auto max-w-[1400px] scroll-mt-24 px-5 py-24 md:px-10 md:py-36"
+    >
+      <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div>
+          <p className="mb-6 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+            (03) — Selected work
+          </p>
+          <h2 className="font-heading text-4xl font-bold leading-[1.05] tracking-tighter text-foreground sm:text-7xl">
+            <WordsReveal text="Things I&apos;ve" />
+            <br />
+            <WordsReveal text="shipped." delay={0.15} />
+          </h2>
+        </div>
+        <p className="max-w-xs text-pretty text-muted-foreground">
+          Three projects that pushed me — from platforms to research to
+          autonomous AI. Tilt the previews, activate the tags, open the studies.
+        </p>
+      </div>
+
+      <div className="space-y-24 md:space-y-36">
+        {PROJECTS.map((project, i) => (
+          <ProjectRow key={project.num} project={project} index={i} />
+        ))}
       </div>
     </section>
   )
 }
-
-export default Projects

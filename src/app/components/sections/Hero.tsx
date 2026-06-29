@@ -1,195 +1,159 @@
-'use client';
-import React from 'react'
-import { motion,Variants } from "framer-motion";
-import { ArrowRight, Code2, Cpu, Github, Linkedin, Server, Twitter } from "lucide-react";
-import Button from "../ui/Button";
-import Image from 'next/image';
-const Hero = () => {
-    const containerVariants:Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
+'use client'
 
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
+import { useEffect, useRef, useState } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import LettersReveal from '../text-reveal'
+
+
+const ROLES = ['Full-Stack Developer', 'AI/ML Enthusiast', 'B.Tech Student', 'Builder']
+
+function Terminal() {
+  const lines = [
+    { p: '~/abjith', c: 'whoami', out: 'abjith b k — developer' },
+    { p: '~/abjith', c: 'cat stack.txt', out: 'react · next · python · ai' },
+    { p: '~/abjith', c: 'status', out: 'open to opportunities ✦' },
+  ]
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-12 overflow-hidden">
-      {/* Background Gradient Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-cyan/10 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-purple/10 rounded-full blur-3xl animate-pulse-slow" />
-
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        
-        {/* --- LEFT COLUMN: TEXT CONTENT --- */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="text-center lg:text-left"
-        >
-          {/* Badge */}
-          <motion.div variants={itemVariants} className="mb-6 flex justify-center lg:justify-start">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary-cyan">
-              <span className="w-2 h-2 rounded-full bg-primary-cyan animate-pulse" />
-              Available for 2027
-            </span>
-          </motion.div>
-
-          {/* Main Heading */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1]"
-          >
-            Hi, I&apos;m 
-            <span className="gradient-text">Abjith B K</span>
-            <br />
-            Full Stack Developer & AI/ML Enthusiast
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            variants={itemVariants}
-            className="text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed"
-          >
-             Passionate about building scalable web applications and exploring the frontiers of Artificial Intelligence. I bridge the gap between robust backend architecture and intuitive frontend experiences.
-          
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12"
-          >
-            <Button variant="primary" href="#projects">
-              View My Work
-              <ArrowRight size={18} />
-            </Button>
-            <Button variant="secondary" href="#contact">
-              Get In Touch
-            </Button>
-          </motion.div>
-
-          {/* Social Links */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center justify-center lg:justify-start gap-4"
-          >
-            {[
-              { icon: Github, href: "#", label: "GitHub" },
-              { icon: Linkedin, href: "#", label: "LinkedIn" },
-              { icon: Twitter, href: "#", label: "Twitter" },
-            ].map((social) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                className="p-3 rounded-full glass text-gray-400 hover:text-primary-cyan hover:border-primary-cyan/50 transition-all"
-                whileHover={{ y: -3, scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label={social.label}
-              >
-                <social.icon size={20} />
-              </motion.a>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* --- RIGHT COLUMN: 3D CHARACTER & FLOATING UI --- */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className="relative flex justify-center lg:justify-end"
-        >
-          {/* Main Character Image */}
-          <motion.div
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="relative z-10 w-full max-w-lg"
-          >
-            <Image
-              src="/image.png"
-              alt="Futuristic Web Engineer"
-              width={600}
-              height={600}
-              className="w-full h-auto drop-shadow-[0_0_30px_rgba(0,240,255,0.2)]"
-              priority
-            />
-          </motion.div>
-
-          {/* Floating UI Badges */}
-          {/* Top Left Badge */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-            className="absolute top-10 left-0 md:left-10 glass-strong rounded-xl p-3 flex items-center gap-3 z-20"
-          >
-            <div className="p-2 rounded-lg bg-primary-cyan/20 text-primary-cyan">
-              <Code2 size={20} />
-            </div>
-            <div className="hidden sm:block">
-              <p className="text-xs text-gray-400 font-mono">Frontend</p>
-              <p className="text-sm font-bold text-white">React / Next.js</p>
-            </div>
-          </motion.div>
-
-          {/* Bottom Right Badge */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.4, duration: 0.6 }}
-            className="absolute bottom-20 right-0 md:right-10 glass-strong rounded-xl p-3 flex items-center gap-3 z-20"
-          >
-            <div className="p-2 rounded-lg bg-primary-purple/20 text-primary-purple">
-              <Server size={20} />
-            </div>
-            <div className="hidden sm:block">
-              <p className="text-xs text-gray-400 font-mono">Backend</p>
-              <p className="text-sm font-bold text-white">Node / Python</p>
-            </div>
-          </motion.div>
-
-          {/* Top Right Small Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.6, duration: 0.6 }}
-            className="absolute top-20 right-10 md:right-20 glass rounded-full p-2 z-20"
-          >
-            <Cpu size={18} className="text-primary-cyan" />
-          </motion.div>
-        </motion.div>
+    <div className="overflow-hidden rounded-xl border border-border bg-navy text-navy-foreground shadow-2xl">
+      <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+        <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+        <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+        <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+        <span className="ml-2 font-mono text-xs text-navy-foreground/50">
+          zsh — abjith
+        </span>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:block"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-gray-600 flex justify-center pt-2"
-        >
-          <div className="w-1 h-2 rounded-full bg-primary-cyan" />
-        </motion.div>
-      </motion.div>
-    </section>
+      <div className="space-y-2 p-5 font-mono text-xs leading-relaxed sm:text-sm">
+        {lines.map((l, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1 + i * 0.45 }}
+          >
+            <div>
+              <span className="text-primary">{l.p}</span>{' '}
+              <span className="text-[#28c840]">$</span>{' '}
+              <span className="text-navy-foreground">{l.c}</span>
+            </div>
+            <div className="text-navy-foreground/60">{l.out}</div>
+          </motion.div>
+        ))}
+        <motion.span
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ repeat: Infinity, duration: 1 }}
+          className="inline-block h-4 w-2 bg-primary align-middle"
+        />
+      </div>
+    </div>
   )
 }
 
-export default Hero
+export function Hero() {
+  const ref = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  })
+  const y = useTransform(scrollYProgress, [0, 1], [0, 220])
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+
+  const [roleIndex, setRoleIndex] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setRoleIndex((i) => (i + 1) % ROLES.length), 2200)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <section
+      id="top"
+      ref={ref}
+      className="relative flex min-h-svh flex-col justify-center overflow-hidden px-5 pb-16 pt-28 md:px-10"
+    >
+      <div className="pointer-events-none absolute inset-0 grid-lines opacity-60" />
+
+      <motion.div
+        style={{ y, opacity }}
+        className="relative mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-10 lg:grid-cols-12"
+      >
+        <div className="lg:col-span-8">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-muted-foreground sm:text-sm"
+          >
+            <span className="h-px w-10 bg-primary" />
+            Portfolio — 2026
+          </motion.p>
+
+          <h1 className="font-heading font-bold leading-[0.82] tracking-tighter">
+            <span className="block text-[18vw] sm:text-[15vw] lg:text-[11.5vw]">
+              <LettersReveal text="ABJITH" />
+            </span>
+            <span className="block text-[18vw] text-stroke sm:text-[15vw] lg:text-[11.5vw]">
+              <LettersReveal text="B K" delay={0.25} />
+            </span>
+          </h1>
+
+          <div className="mt-6 flex h-8 items-center font-mono text-base text-primary sm:text-xl">
+            <span className="text-foreground">{'// '}</span>
+            <span className="relative ml-2 inline-block">
+              {ROLES.map((role, i) => (
+                <motion.span
+                  key={role}
+                  className="absolute left-0 whitespace-nowrap"
+                  initial={false}
+                  animate={{
+                    y: roleIndex === i ? 0 : 20,
+                    opacity: roleIndex === i ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.4 }}
+                >
+                  {role}
+                </motion.span>
+              ))}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-6 lg:col-span-4">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="max-w-sm text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+          >
+            I design and build interactive web experiences that blur the line
+            between engineering and craft. Currently obsessed with AI, motion,
+            and details most people miss.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+          >
+            <Terminal />
+          </motion.div>
+        </div>
+      </motion.div>
+
+      <a
+        href="#about"
+        data-cursor
+        className="group absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+          Scroll
+        </span>
+        <span className="relative flex h-12 w-7 justify-center rounded-full border border-border">
+          <motion.span
+            animate={{ y: [4, 18, 4], opacity: [1, 0.2, 1] }}
+            transition={{ repeat: Infinity, duration: 1.6 }}
+            className="mt-1.5 h-2 w-2 rounded-full bg-primary"
+          />
+        </span>
+      </a>
+    </section>
+  )
+}

@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { ReactLenis } from "lenis/react";
 import { Toaster } from "react-hot-toast";
+import { CustomCursor } from "./components/sections/customCursor";
+import { ScrollProgress } from "./components/sections/scrollProgress";
+import { KonamiEgg } from "./components/sections/konamiEgg";
 import "./globals.css";
+import { Navbar } from "./components/navigation/Navbar";
 
 const inter = Inter({ 
   subsets: ["latin"],
   variable: "--font-inter",
 });
 
-const jetbrains = JetBrains_Mono({ 
+const spaceGrotesk = Space_Grotesk({ 
   subsets: ["latin"],
-  variable: "--font-jetbrains",
+  variable: "--font-space-grotesk",
 });
 
 export const metadata: Metadata = {
@@ -25,35 +29,49 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
-      <body className="antialiased bg-background text-white">
-        {/* Global Toast Notifications - Styled to match your dark theme */}
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <body className="antialiased bg-background text-foreground">
+        {/* Grain overlay for texture */}
+        <div className="grain-overlay" />
+        
+        {/* Grid lines background */}
+        <div className="fixed inset-0 grid-lines pointer-events-none z-0" />
+        
+        {/* Global UI Components */}
+        <Navbar />
+        <ScrollProgress />
+        <CustomCursor />
+        <KonamiEgg />
+        
+        {/* Global Toast Notifications */}
         <Toaster 
           position="top-center"
           toastOptions={{
             style: {
-              background: '#051424', // Matches your background
-              color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--card)',
+              color: 'var(--foreground)',
+              border: '1px solid var(--border)',
               borderRadius: '12px',
             },
             success: {
               iconTheme: {
-                primary: '#00f0ff', // Cyan checkmark
-                secondary: '#051424',
+                primary: 'var(--primary)',
+                secondary: 'var(--card)',
               },
             },
             error: {
               iconTheme: {
-                primary: '#ff4d4f', // Red error icon
-                secondary: '#051424',
+                primary: 'var(--destructive)',
+                secondary: 'var(--card)',
               },
             },
           }}
         />
         
         <ReactLenis root>
-          {children}
+          <div className="relative z-10">
+            {children}
+          </div>
         </ReactLenis>
       </body>
     </html>

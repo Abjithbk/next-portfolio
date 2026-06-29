@@ -1,25 +1,21 @@
 'use client'
-import React from "react";
-import ParticleBackground from "./components/effects/ParticleBackground";
-import Navbar from "./components/navigation/Navbar";
-import Hero from "./components/sections/Hero";
-import StatsAndAbout from "./components/sections/StatsAndAbout";
-import Skills from "./components/sections/Skills";
-import Projects from "./components/sections/Projects";
-import ContactAndFooter from "./components/sections/ContactAndFooter";
-import CodingActivity from "./components/sections/CodingActivity";
+import React from 'react'
+import { Hero } from './components/sections/Hero'
+import { About } from './components/sections/about'
+import { Skills } from './components/sections/Skills'
+import { Projects } from './components/sections/Projects'
+import { Contact } from './components/sections/contact'
+import { CodingActivity } from './components/sections/CodingActivity'
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen">
-      <ParticleBackground />
-      <Navbar />
+    <main className="relative">
       <Hero />
-      <StatsAndAbout />
-      <Skills/>
-      <CodingActivity/>
-      <Projects/>
-      <ContactAndFooter/>
+      <About />
+      <Skills />
+      <Projects />
+      <CodingActivity />
+      <Contact />
     </main>
-  );
+  )
 }

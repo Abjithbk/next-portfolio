@@ -1,140 +1,84 @@
 'use client'
-import React from 'react'
-import { motion, useInView, Variants } from "framer-motion";
-import { useRef } from "react";
-const Skills = () => {
-    const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // Define typed variants to prevent TypeScript errors
-  const sectionVariants: Variants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.1 } 
-    },
-  };
+import { motion } from 'framer-motion'
+import { WordsReveal } from '../text-reveal';
 
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+const SKILLS = [
+  { name: 'React / Next.js', level: 'Expert', note: 'App Router, RSC, SSR, performance.' },
+  { name: 'TypeScript', level: 'Expert', note: 'Strict types, generics, DX-first APIs.' },
+  { name: 'Tailwind CSS', level: 'Expert', note: 'Design systems & tokens at scale.' },
+  { name: 'Framer Motion', level: 'Advanced', note: 'Scroll, gesture & layout animation.' },
+  { name: 'Python / FastAPI', level: 'Advanced', note: 'Async APIs, data pipelines.' },
+  { name: 'Node.js', level: 'Advanced', note: 'APIs, tooling, real-time services.' },
+  { name: 'PostgreSQL', level: 'Advanced', note: 'Modeling, queries, optimization.' },
+  { name: 'MongoDB', level: 'Proficient', note: 'Document modeling & aggregation.' },
+  { name: 'Docker', level: 'Proficient', note: 'Containerized dev & deploy.' },
+  { name: 'Git / GitHub', level: 'Expert', note: 'Branching, reviews, clean history.' },
+  { name: 'Playwright', level: 'Advanced', note: 'E2E tests & browser automation.' },
+  { name: 'Figma', level: 'Proficient', note: 'Prototyping & design handoff.' },
+]
 
-  // Your Tech Stack Data
-  const skillCategories = [
-    {
-      title: "Frontend",
-      skills: [
-        { name: "React / Next.js", level: 90 },
-        { name: "TypeScript", level: 90 },
-        { name: "Tailwind CSS", level: 90 },
-        { name: "Framer Motion", level: 60 },
-      ],
-    },
-    {
-      title: "Backend",
-      skills: [
-        { name: "Python / FastAPI", level: 90 },
-        { name: "Node.js / Express", level: 75 },
-        { name: "REST APIs", level: 85 },
-      ],
-    },
-    {
-      title: "Database & Cloud",
-      skills: [
-        { name: "PostgreSQL", level: 95 },
-        { name: "MongoDB", level: 90 },
-        { name: "Vercel", level: 87 },
-        { name: "Docker", level: 80 },
-      ],
-    },
-    {
-      title: "Tools & Automation",
-      skills: [
-        { name: "Git / GitHub", level: 95 },
-        { name: "Playwright / Patchright", level: 89 },
-        { name: "Render", level: 85 },
-        { name: "Figma", level: 70 },
-      ],
-    },
-  ];
+function FlipCard({ skill, index }: { skill: (typeof SKILLS)[number]; index: number }) {
   return (
-    <section ref={ref} id='skills' className="relative py-24 px-6 z-10">
-      <div className="max-w-6xl mx-auto">
-        
-        {/* Section Header */}
-        <motion.div
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={sectionVariants}
-          className="text-center mb-16"
-        >
-          <span className="text-primary-cyan font-mono text-sm tracking-widest uppercase mb-3 block">
-            Technical Ecosystem
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-10%' }}
+      transition={{ duration: 0.5, delay: (index % 4) * 0.06 }}
+      className="group relative h-32 [perspective:1000px]"
+      tabIndex={0}
+    >
+      <div className="relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus:[transform:rotateY(180deg)]">
+        {/* Front */}
+        <div className="absolute inset-0 flex flex-col justify-between rounded-xl border border-border bg-card p-4 [backface-visibility:hidden]">
+          <span className="font-mono text-[10px] text-muted-foreground">
+            {String(index + 1).padStart(2, '0')}
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            My Toolkit
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Specialized toolkit for modern software development. 
-            Continuously learning and adapting to new technologies.
+          <span className="font-heading text-xl font-semibold leading-tight tracking-tight text-foreground">
+            {skill.name}
+          </span>
+        </div>
+        {/* Back */}
+        <div className="absolute inset-0 flex flex-col justify-between rounded-xl border border-primary bg-primary p-4 text-primary-foreground [backface-visibility:hidden] [transform:rotateY(180deg)]">
+          <span className="font-mono text-[10px] uppercase tracking-wider opacity-80">
+            {skill.level}
+          </span>
+          <span className="text-pretty text-sm leading-snug">{skill.note}</span>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+export function Skills() {
+  return (
+    <section
+      id="skills"
+      className="relative scroll-mt-24 bg-navy py-24 text-navy-foreground md:py-36"
+    >
+      <div className="pointer-events-none absolute inset-0 grid-lines opacity-10" />
+      <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
+        <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <p className="mb-6 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+              (02) — Toolkit
+            </p>
+            <h2 className="font-heading text-4xl font-bold leading-[1.05] tracking-tighter text-navy-foreground sm:text-6xl">
+              <WordsReveal text="The stack I build with" />
+            </h2>
+          </div>
+          <p className="max-w-xs text-pretty text-navy-foreground/60">
+            Hover or focus a card to flip it. Twelve tools I reach for to ship
+            fast without cutting corners.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Skills Grid */}
-        <motion.div
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={sectionVariants}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
-          {skillCategories.map((category, catIndex) => (
-            <motion.div
-              key={catIndex}
-              variants={cardVariants}
-              className="glass rounded-2xl p-6 md:p-8 hover:border-primary-cyan/20 transition-colors"
-            >
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <span className="w-1.5 h-6 rounded-full bg-primary-cyan" />
-                {category.title}
-              </h3>
-
-              <div className="space-y-5">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-300">
-                        {skill.name}
-                      </span>
-                      <span className="text-xs font-mono text-primary-cyan">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    
-                    {/* Progress Bar Track */}
-                    <div className="w-full h-2 rounded-full bg-white/5 overflow-hidden">
-                      {/* Animated Progress Bar Fill */}
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-                        transition={{ 
-                          duration: 1.5, 
-                          ease: "easeOut", 
-                          delay: 0.2 + (skillIndex * 0.1) 
-                        }}
-                        className="h-full rounded-full bg-gradient-to-r from-primary-cyan to-primary-purple shadow-[0_0_10px_rgba(0,240,255,0.5)]"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {SKILLS.map((skill, i) => (
+            <FlipCard key={skill.name} skill={skill} index={i} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
-
-export default Skills
