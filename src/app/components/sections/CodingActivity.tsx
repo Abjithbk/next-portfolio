@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   animate,
   motion,
   useInView,
   useMotionValue,
 } from 'framer-motion'
+import axios from 'axios'
 import { WordsReveal } from '../text-reveal'
 
 function Counter({
@@ -41,28 +42,7 @@ function Counter({
   )
 }
 
-function ContributionGraph() {
-  const weeks = 52
-  const days = 7
-  const cells = useMemo(() => {
-    const out: number[][] = []
-    let seed = 7
-    const rand = () => {
-      seed = (seed * 9301 + 49297) % 233280
-      return seed / 233280
-    }
-    for (let w = 0; w < weeks; w++) {
-      const col: number[] = []
-      for (let d = 0; d < days; d++) {
-        const r = rand()
-        const level = r > 0.78 ? 4 : r > 0.6 ? 3 : r > 0.42 ? 2 : r > 0.25 ? 1 : 0
-        col.push(level)
-      }
-      out.push(col)
-    }
-    return out
-  }, [])
-
+function ContributionGraph({ data }: { data: number[][] }) {
   const levelClass = [
     'bg-foreground/10',
     'bg-primary/30',
@@ -74,11 +54,11 @@ function ContributionGraph() {
   return (
     <div className="overflow-x-auto">
       <div className="flex min-w-[640px] gap-1">
-        {cells.map((col, w) => (
+        {data.map((col: number[], w: number) => (
           <div key={w} className="flex flex-col gap-1">
-            {col.map((level, d) => (
+            {col.map((level: number, d: number) => (
               <motion.span
-                key={d}
+                key={`${w}-${d}`}
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -93,14 +73,56 @@ function ContributionGraph() {
   )
 }
 
-const STATS = [
-  { label: 'Contributions / yr', to: 1284, suffix: '+' },
-  { label: 'LeetCode solved', to: 540, suffix: '+' },
-  { label: 'Public repos', to: 38, suffix: '' },
-  { label: 'Longest streak', to: 96, suffix: ' days' },
-]
-
 export function CodingActivity() {
+  const [contributions, setContributions] = useState<number[][]>([])
+  const [stats, setStats] = useState([
+    { label: 'Contributions / yr', to: 0, suffix: '+' },
+    { label: 'Public repos', to: 0, suffix: '' },
+    { label: 'Longest streak', to: 0, suffix: ' days' },
+  ])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch everything from our new unified GitHub stats route
+        const response = await axios.get('/api/github')
+        const data = response.data
+        
+        setContributions(data.contributionGraph)
+
+        // Update stats with real GitHub data
+        setStats([
+          { label: 'Contributions / yr', to: data.totalContributions, suffix: '+' },
+          { label: 'Public repos', to: data.publicRepos, suffix: '' },
+          { label: 'Longest streak', to: data.longestStreak, suffix: ' days' },
+        ])
+      } catch (error) {
+        console.error('Error fetching GitHub stats:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (loading) {
+    return (
+      <section
+        id="activity"
+        className="relative mx-auto max-w-[1400px] scroll-mt-24 px-5 py-24 md:px-10 md:py-36"
+      >
+        <p className="mb-6 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+          (04) — Live activity
+        </p>
+        <h2 className="mb-12 font-heading text-4xl font-bold leading-[1.05] tracking-tighter text-foreground sm:text-6xl">
+          Loading stats...
+        </h2>
+      </section>
+    )
+  }
+
   return (
     <section
       id="activity"
@@ -124,7 +146,7 @@ export function CodingActivity() {
               last 12 months
             </span>
           </div>
-          <ContributionGraph />
+          <ContributionGraph data={contributions} />
           <div className="mt-5 flex items-center justify-end gap-2 font-mono text-[10px] text-muted-foreground">
             Less
             <span className="h-3 w-3 rounded-[3px] bg-foreground/10" />
@@ -136,8 +158,8 @@ export function CodingActivity() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-5 lg:grid-cols-1">
-          {STATS.map((stat) => (
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-1">
+          {stats.map((stat) => (
             <div
               key={stat.label}
               className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6"
