@@ -30,7 +30,7 @@ const PROJECTS: Project[] = [
     title: 'InternPath',
     year: '2025',
     category: 'Platform',
-    image: '/projects/internpath.png',
+    image: '/internpath.png',
     blurb:
       'An intelligent internship guidance platform with NLP-powered resume analysis, skill-based recommendations, and fake internship detection.',
     tags: ['React.js', 'FastAPI', 'PostgreSQL', 'NLP'],
@@ -46,7 +46,7 @@ const PROJECTS: Project[] = [
     title: 'Underwater Image Enhancement',
     year: '2024',
     category: 'Research / ML',
-    image: '/projects/underwater.png',
+    image: '/underwater.png',
     blurb:
       'Deep-learning pipeline that restores color, contrast, and clarity in degraded underwater imagery using CNN-based models.',
     tags: ['Computer Vision', 'FastAPI', 'Deep Learning', 'Python'],
@@ -62,7 +62,7 @@ const PROJECTS: Project[] = [
     title: 'AI Operations Agent',
     year: '2026',
     category: 'AI / Agents',
-    image: '/projects/ai-agent.png',
+    image: '/ai-agent.png',
     blurb:
       'A proactive observability platform that automates incident detection and root-cause analysis using NLP and LLMs.',
     tags: ['Next.js', 'FastAPI', 'Redis', 'LLM / Groq'],

@@ -6,6 +6,7 @@ import { Skills } from './components/sections/Skills'
 import { Projects } from './components/sections/Projects'
 import { Contact } from './components/sections/contact'
 import { CodingActivity } from './components/sections/CodingActivity'
+import { LeetCode } from './components/sections/leetcode'
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Skills />
       <Projects />
       <CodingActivity />
+      <LeetCode />
       <Contact />
     </main>
   )
