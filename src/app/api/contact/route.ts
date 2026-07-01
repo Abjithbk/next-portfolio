@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
     try {
@@ -13,63 +16,46 @@ export async function POST(req: Request) {
             }, { status: 400 });
         }
 
-        // 2. Check for Web3Forms Key
-        const web3key = process.env.WEB3FORMS_ACCESS_KEY;
-        if (!web3key) {
-            console.error('❌ WEB3FORMS_ACCESS_KEY is missing in .env.local');
+        // 2. Check for Resend API Key
+        if (!process.env.RESEND_API_KEY) {
+            console.error('❌ RESEND_API_KEY is missing in .env.local');
             return NextResponse.json({
                 success: false,
                 error: 'Server configuration error'
             }, { status: 500 });
         }
 
-        // 3. Send Email via Web3Forms
-        const res = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json' // 👈 Added this to force JSON response
-            },
-            body: JSON.stringify({
-                access_key: web3key,
-                name,
-                email,
-                message,
-                subject: `New portfolio Message from ${name}`,
-                replyto: email,
-            }),
+        // 3. Send Email via Resend
+        const data = await resend.emails.send({
+            from: 'Portfolio Contact <onboarding@resend.dev>', // Default sender (you can customize later)
+            to: ['bkabjith2@gmail.com'], // Your email where you want to receive messages
+            replyTo: email, // So you can reply directly to the person who sent the message
+            subject: `New Portfolio Message from ${name}`,
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #FF6B35;">New Contact Form Submission</h2>
+                    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p><strong>From:</strong> ${name}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Message:</strong></p>
+                        <p style="white-space: pre-wrap;">${message}</p>
+                    </div>
+                    <p style="color: #666; font-size: 12px;">
+                        This email was sent from your portfolio contact form.
+                    </p>
+                </div>
+            `,
         });
 
-        // 4. Safely read the response
-        const responseText = await res.text();
-        console.log('📧 WEB3FORMS Raw response:', responseText);
+        console.log('✅ Email sent successfully:', data);
 
-        let result;
-        try {
-            // ✅ FIX: We actually parse the text into a JSON object now!
-            result = JSON.parse(responseText);
-        } catch (e) {
-            console.error('❌ Web3Forms returned HTML instead of JSON. Your Access Key is likely invalid or unverified.');
-            return NextResponse.json({ 
-                success: false, 
-                error: 'Email provider error' 
-            }, { status: 500 });
-        }
+        return NextResponse.json({ success: true });
 
-        // 5. Return the final result
-        if (result.success) {
-            return NextResponse.json({ success: true });
-        } else {
-            return NextResponse.json({ 
-                success: false, 
-                error: result.message || 'Failed to send email' 
-            }, { status: 500 });
-        }
     } catch (error) {
         console.error('Contact API Error:', error);
         return NextResponse.json({ 
             success: false, 
-            error: 'Internal Server Error' 
+            error: 'Failed to send email' 
         }, { status: 500 });
     }
 }
