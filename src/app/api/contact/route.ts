@@ -27,9 +27,9 @@ export async function POST(req: Request) {
 
         // 3. Send Email via Resend
         const data = await resend.emails.send({
-            from: 'Portfolio Contact <onboarding@resend.dev>', // Default sender (you can customize later)
-            to: ['bkabjith2@gmail.com'], // Your email where you want to receive messages
-            replyTo: email, // So you can reply directly to the person who sent the message
+            from: 'Portfolio Contact <onboarding@resend.dev>', 
+            to: ['bkabjith2@gmail.com'], 
+            replyTo: email, 
             subject: `New Portfolio Message from ${name}`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
