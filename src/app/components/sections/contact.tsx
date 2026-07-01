@@ -60,7 +60,7 @@ function ChatForm() {
     setIsSubmitting(true)
 
     try {
-      // 2. Send to API (Discord + Web3Forms)
+      // 2. Send to API (Web3Forms)
       const response = await axios.post('/api/contact', {
         name: name || "Visitor",
         email: email,

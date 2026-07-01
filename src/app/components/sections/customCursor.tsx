@@ -49,7 +49,7 @@ export function CustomCursor() {
         width: variant === 'default' ? 14 : label ? 88 : 56,
         height: variant === 'default' ? 14 : label ? 88 : 56,
         backgroundColor:
-          variant === 'default' ? 'var(--foreground)' : 'var(--primary)',
+          variant === 'default' ? '#262626' : '#FF6B35',
       }}
       transition={{ type: 'spring', damping: 20, stiffness: 300 }}
     >

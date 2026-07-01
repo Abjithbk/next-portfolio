@@ -27,6 +27,7 @@ export function KonamiEgg() {
   useEffect(() => {
     let pos = 0
     const onKey = (e: KeyboardEvent) => {
+      if(!e.key) return
       const key = e.key.length === 1 ? e.key.toLowerCase() : e.key
       if (key === SEQUENCE[pos]) {
         pos++

@@ -30,7 +30,7 @@ function ProgressBar({ solved, total, color }: { solved: number; total: number; 
       <div className="h-2 w-full overflow-hidden rounded-full bg-foreground/10">
         <motion.div
           initial={{ width: 0 }}
-          animate={ref ? { width: `${percentage}%` } : { width: 0 }}
+          animate={isInView ? { width: `${percentage}%` } : { width: 0 }}
           transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
           className={`h-full rounded-full ${color}`}
         />
