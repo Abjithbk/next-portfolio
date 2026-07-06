@@ -18,7 +18,6 @@ export async function POST(req: Request) {
 
         // 2. Check for Resend API Key
         if (!process.env.RESEND_API_KEY) {
-            console.error('❌ RESEND_API_KEY is missing in .env.local');
             return NextResponse.json({
                 success: false,
                 error: 'Server configuration error'
@@ -46,13 +45,9 @@ export async function POST(req: Request) {
                 </div>
             `,
         });
-
-        console.log('✅ Email sent successfully:', data);
-
         return NextResponse.json({ success: true });
 
     } catch (error) {
-        console.error('Contact API Error:', error);
         return NextResponse.json({ 
             success: false, 
             error: 'Failed to send email' 
