@@ -1,5 +1,4 @@
 import axios from "axios";
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -28,7 +27,6 @@ export async function GET() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // LeetCode blocks requests without a User-Agent from servers
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       },
       body: JSON.stringify({
