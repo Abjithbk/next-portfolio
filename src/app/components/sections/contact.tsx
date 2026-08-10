@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { Mail, ArrowUpRight, Download, Send } from 'lucide-react'
 import axios from 'axios'
 import toast from 'react-hot-toast'

@@ -1,5 +1,20 @@
 import { NextResponse } from 'next/server';
 
+type GitHubContributionDay = { contributionCount: number; date: string };
+type GitHubContributionWeek = { contributionDays: GitHubContributionDay[] };
+type GitHubGraphResponse = {
+  data?: {
+    user?: {
+      contributionsCollection?: {
+        contributionCalendar?: {
+          weeks?: GitHubContributionWeek[];
+        };
+      };
+    };
+  };
+  errors?: unknown[];
+};
+
 export async function GET() {
   const username = 'Abjithbk';
   const token = process.env.GITHUB_TOKEN;
@@ -74,14 +89,14 @@ export async function GET() {
       return NextResponse.json(mockData);
     }
 
-    const graphData = await graphRes.json();
+    const graphData = await graphRes.json() as GitHubGraphResponse;
 
     if (graphData.errors) {
       console.error('❌ GraphQL ERRORS:', JSON.stringify(graphData.errors, null, 2));
       return NextResponse.json(mockData);
     }
 
-    const weeks = graphData.data.user.contributionsCollection.contributionCalendar.weeks;
+    const weeks = graphData.data?.user?.contributionsCollection?.contributionCalendar?.weeks ?? [];
 
 
     let totalContributions = 0;
@@ -89,8 +104,8 @@ export async function GET() {
     let currentStreak = 0;
     const today = new Date().toISOString().split('T')[0];
 
-    const contributionGraph = weeks.map((week: any) =>
-      week.contributionDays.map((day: any) => {
+    const contributionGraph = weeks.map((week: GitHubContributionWeek) =>
+      week.contributionDays.map((day: GitHubContributionDay) => {
         const count = day.contributionCount;
         
         // Add to total

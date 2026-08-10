@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useRef } from 'react'
 
-export function Magnetic({ children,className="" }: { children: React.ReactNode,className?: string }) {
+export function Magnetic({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -31,7 +31,7 @@ export function Magnetic({ children,className="" }: { children: React.ReactNode,
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ x: springX, y: springY }}
-      className="inline-block"
+      className={className || 'inline-block'}
     >
       {children}
     </motion.div>

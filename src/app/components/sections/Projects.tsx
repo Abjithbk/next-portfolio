@@ -6,7 +6,6 @@ import {
   AnimatePresence,
   motion,
   useMotionValue,
-  useScroll,
   useSpring,
   useTransform,
 } from 'framer-motion'

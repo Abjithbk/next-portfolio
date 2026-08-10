@@ -1,5 +1,17 @@
-import axios from "axios";
 import { NextResponse } from "next/server";
+
+type LeetCodeStat = { difficulty: string; count: number; submissions: number };
+type LeetCodeResponse = {
+  data?: {
+    matchedUser?: {
+      submitStats?: {
+        acSubmissionNum?: LeetCodeStat[];
+      };
+    };
+    allQuestionsCount?: LeetCodeStat[];
+  };
+  errors?: unknown[];
+};
 
 export async function GET() {
 
@@ -39,17 +51,17 @@ export async function GET() {
         throw new Error("Failed to fetch Leetcode data")
     }
 
-    const data = await res.json();
+    const data = await res.json() as LeetCodeResponse;
 
     if(data.errors) {
         return NextResponse.json({error:"user not found"},{status:404})
     }
-    const stats = data.data.matchedUser.submitStats.acSubmissionNum;
-    const totals = data.data.allQuestionsCount;
+    const stats = data.data?.matchedUser?.submitStats?.acSubmissionNum ?? [];
+    const totals = data.data?.allQuestionsCount ?? [];
 
     // Map the data to Easy, Medium, Hard
-    const getStat = (difficulty: string) => stats.find((s:any) => s.difficulty === difficulty) || { count: 0, submissions: 0 };
-    const getTotal = (difficulty: string) => totals.find((t:any) => t.difficulty === difficulty)?.count || 0;
+    const getStat = (difficulty: string) => stats.find((s: LeetCodeStat) => s.difficulty === difficulty) || { count: 0, submissions: 0 };
+    const getTotal = (difficulty: string) => totals.find((t: LeetCodeStat) => t.difficulty === difficulty)?.count || 0;
 
     const easy = getStat('Easy');
     const medium = getStat('Medium');
