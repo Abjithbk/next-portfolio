@@ -58,18 +58,18 @@ const PROJECTS: Project[] = [
   },
   {
     num: '03',
-    title: 'AI Operations Agent',
+    title: 'Lit-GraphRAG',
     year: '2026',
-    category: 'AI / Agents',
-    image: '/ai-agent.png',
+    category: 'AI / Graphs',
+    image: '/lit-graphrag.jpg',
     blurb:
-      'A proactive observability platform that automates incident detection and root-cause analysis using NLP and LLMs.',
-    tags: ['Next.js', 'FastAPI', 'Redis', 'LLM / Groq'],
+      'Transform multiple academic research PDFs into an interactive, interconnected knowledge graph for cross-paper synthesis and citation-grounded conversational reasoning.',
+    tags: ['Next.js', 'FastAPI', 'Neo4j', 'ChromaDB'],
     study: [
-      'Built a Universal Ingestion API and lightweight Python SDK for seamless log and metrics streaming.',
-      'Implemented multi-stage AI pipeline using Sentence Transformers and DBSCAN for error clustering.',
-      'Integrated Large Language Models via Groq to generate plain-English root cause summaries.',
-      'Added statistical anomaly detection with Isolation Forest and automated Slack notifications.',
+      'Paired Graph Databases (Neo4j) and Vector Stores (ChromaDB) for multi-document ingestion and knowledge extraction.',
+      'Constructed automated 4-part grounded paper profiles detailing Problem, Method, Results, and Limitations.',
+      'Implemented a graph-aware conversational interface with streaming answers and interactive in-text citations.',
+      'Built an interactive React Flow canvas for exploring the interconnected knowledge graph with smooth filtering and detailed node views.',
     ],
   },
 ]
