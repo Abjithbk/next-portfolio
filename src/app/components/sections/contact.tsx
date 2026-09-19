@@ -229,7 +229,7 @@ export function Contact() {
         </div>
 
         <footer className="mt-24 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 font-mono text-xs text-navy-foreground/50 sm:flex-row">
-          <span>© 2026 Abjith B K — built from scratch, not a template.</span>
+          <span>© 2026 Abjith B K</span>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="transition-colors hover:text-primary"

@@ -58,7 +58,7 @@ const PROJECTS: Project[] = [
   },
   {
     num: '03',
-    title: 'Lit-GraphRAG',
+    title: 'GraphMind',
     year: '2026',
     category: 'AI / Graphs',
     image: '/lit-graphrag.jpg',

@@ -7,10 +7,10 @@ import { WordsReveal } from '../text-reveal'
 const TIMELINE = [
   {
     year: '2026',
-    title: 'Building AI Operations Agent',
+    title: 'Building GraphMind',
     tag: 'Now',
     detail:
-      'Designing an autonomous agent that triages tasks, runs tools, and reports back — wiring LLMs into real workflows.',
+      'Developing an academic literature review assistant leveraging Neo4j and ChromaDB for cross-paper synthesis and citation-grounded conversational reasoning.',
   },
   {
     year: '2025',
