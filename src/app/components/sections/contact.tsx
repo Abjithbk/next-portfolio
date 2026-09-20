@@ -35,9 +35,9 @@ function TwitterIcon({ className }: IconProps) {
 
 const SOCIALS = [
   { label: 'GitHub', handle: '@abjithbk', href: 'https://github.com/Abjithbk', Icon: GithubIcon },
-  { label: 'LinkedIn', handle: 'in/abjithbk', href: 'https://linkedin.com/in/abjithbk', Icon: LinkedinIcon },
+  { label: 'LinkedIn', handle: 'in/abjithbk', href: 'https://www.linkedin.com/in/abjith-b-k-a3b2b5291', Icon: LinkedinIcon },
   { label: 'Twitter / X', handle: '@abjithbk', href: 'https://twitter.com/abjithbk', Icon: TwitterIcon },
-  { label: 'Email', handle: 'abjithbk@gmail.com', href: 'mailto:abjithbk@gmail.com', Icon: Mail },
+  { label: 'Email', handle: 'bkabjith2@gmail.com', href: 'mailto:bkabjith2@gmail.com', Icon: Mail },
 ]
 
 function ChatForm() {
@@ -48,7 +48,7 @@ function ChatForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     // 1. Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
@@ -214,7 +214,7 @@ export function Contact() {
 
             <Magnetic className="mt-8 inline-block">
               <a
-                href="/resume.pdf" 
+                href="/resume.pdf"
                 download
                 className="group relative flex items-center gap-3 overflow-hidden rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold"
               >
